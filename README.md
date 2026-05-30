@@ -13,9 +13,9 @@ A production-style retail analytics pipeline built on the public Superstore data
 
 ---
 
-## 📸 Dashboard
+## 📸 Dashboard Preview
 
-🔗 **[View Live on Tableau Public](YOUR_TABLEAU_URL_HERE)**
+![Retail Sales Intelligence Dashboard](dashboard_preview.png)
 
 ---
 
@@ -79,6 +79,8 @@ superstore_clean.csv   ← 5,009 deduplicated rows
 retail-dashboard/
 ├── clean.py                    # ETL — cleaning & feature engineering
 ├── build_model.py              # DuckDB SQL model runner
+├── dashboard.twb               # Tableau workbook file
+├── dashboard_preview.png       # Dashboard screenshot
 ├── sql/
 │   └── model.sql               # 5 analytical KPI views
 ├── output/
@@ -125,7 +127,7 @@ pip install pandas duckdb openpyxl
 
 # 4. Download the dataset
 # Place "Sample - Superstore.csv" into the data/ folder
-# https://www.kaggle.com/datasets/vivek468/superstore-dataset-final
+# Source: https://www.kaggle.com/datasets/vivek468/superstore-dataset-final
 
 # 5. Run ETL
 python clean.py
@@ -134,7 +136,7 @@ python clean.py
 python build_model.py
 ```
 
-Output CSVs land in `output/kpis/`. Open `output/superstore_clean.csv` in Tableau Public to rebuild the dashboard.
+Output CSVs land in `output/kpis/`. Open `output/superstore_clean.csv` in Tableau to rebuild the dashboard.
 
 ---
 
@@ -152,15 +154,28 @@ Output CSVs land in `output/kpis/`. Open `output/superstore_clean.csv` in Tablea
 
 ## 🧠 Challenges and What I Learned
 
-**Duplicate `order_id` rows** — The raw Superstore CSV contains multiple line items per order (one row per product), causing `order_id` duplicates. Deduplicated using `drop_duplicates(subset="order_id", keep="first")`, reducing 9,994 rows to 5,009 unique orders. An alternative approach would be to aggregate at order level in SQL.
+**Duplicate `order_id` rows** — The raw Superstore CSV contains multiple line items per order (one row per product), causing `order_id` duplicates. Deduplicated using `drop_duplicates(subset="order_id", keep="first")`, reducing 9,994 rows to 5,009 unique orders. An alternative approach would be to aggregate at order level in SQL before exporting.
 
 **DuckDB view alias resolution** — Writing `FROM fact_orders f` and referencing `f.category` caused a `BinderException` because DuckDB resolves column names through its view chain differently than PostgreSQL. Fixed by removing the table alias and referencing columns directly.
 
 **Persistent `.duckdb` file caching** — After fixing the SQL, re-running `build_model.py` still threw the old error because DuckDB had cached the broken view in the `.duckdb` binary. Fixed by deleting the file before re-running to force a clean rebuild.
 
-**Power BI Desktop is Windows-only** — The `.exe` installer cannot run on macOS at all. Switched to Tableau Public which has a native macOS `.dmg` installer and equivalent visualization capabilities.
+**Power BI Desktop is Windows-only** — The `.exe` installer cannot run on macOS. Switched to Tableau Public which has a native macOS installer and equivalent visualization capabilities.
 
-**Profit margin on deduplicated data** — Deduplicating on `order_id` rather than aggregating means some multi-item orders are represented by a single line item. Noted as a modeling tradeoff: the KPI views reflect per-order-row metrics rather than true order-level aggregations.
+**Git divergent branches** — GitHub auto-created a README commit when the repo was initialized, diverging from the local history. Resolved with `git pull --rebase origin main` before pushing.
+
+---
+
+## 📄 Data Source & Attribution
+
+**Dataset:** [Superstore Sales Dataset](https://www.kaggle.com/datasets/vivek468/superstore-dataset-final) by [Vivek468](https://www.kaggle.com/vivek468) on Kaggle.
+
+This is a widely used public dataset originally derived from Tableau's Sample Superstore data. It is used here strictly for educational and portfolio purposes. No modifications have been made to the raw source file — all transformations are documented in `clean.py` and `sql/model.sql`.
+
+**Libraries used:**
+- [pandas](https://pandas.pydata.org/) — BSD 3-Clause License
+- [DuckDB](https://duckdb.org/) — MIT License
+- [Tableau Public](https://public.tableau.com/) — Free tier, Tableau Software LLC
 
 ---
 
