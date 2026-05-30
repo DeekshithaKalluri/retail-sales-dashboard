@@ -950,8 +950,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1950' minheight='1950' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='21' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98322' id='20' param='vert' type-v2='layout-flow' w='98268' x='866' y='839'>
+            <zone h='100000' id='23' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98322' id='22' param='vert' type-v2='layout-flow' w='98268' x='866' y='839'>
                 <zone forceUpdate='true' h='3356' id='17' type-v2='text' w='98268' x='866' y='839'>
                   <formatted-text>
                     <run bold='true' fontalignment='1' fontsize='14'>Retail Sales Intelligence Dashboard  |  Superstore Dataset 2014–2017  |  Total Revenue: $1,099,862</run>
