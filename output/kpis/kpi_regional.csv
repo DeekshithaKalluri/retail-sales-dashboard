@@ -1,0 +1,5 @@
+region,region_revenue,region_profit,avg_margin_pct,order_count,unique_customers
+West,332443.69,47420.33,22.59,1611,686
+East,330694.63,52445.58,17.37,1401,674
+Central,246314.56,11356.98,-11.68,1175,629
+South,190409.21,21292.67,15.62,822,512
