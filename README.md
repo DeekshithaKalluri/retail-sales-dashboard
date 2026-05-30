@@ -1,3 +1,5 @@
+<div align="center">
+      
 # 📊 Retail Sales Intelligence Dashboard
 
 ![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python&logoColor=white)
@@ -6,6 +8,8 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 A production-style retail analytics pipeline built on the public Superstore dataset. Python cleans and enriches 9,994 raw transactions, DuckDB models five analytical KPI views in SQL, and Tableau Public publishes a 5-visual interactive dashboard — all reproducible from a single clone.
+
+</div>
 
 ---
 
